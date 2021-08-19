@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:register_user/controller.dart';
 import 'package:register_user/login.dart';
 
-class SingUp extends StatefulWidget {
+class SignUp extends StatefulWidget {
   @override
-  _SingUpState createState() => _SingUpState();
+  _SignUpState createState() => _SignUpState();
 }
 
-class _SingUpState extends State<SingUp> {
+class _SignUpState extends State<SignUp> {
   var controller = LoginController();
   final controllerUsername = TextEditingController();
   final controllerPassword = TextEditingController();
@@ -79,12 +79,16 @@ class _SingUpState extends State<SingUp> {
                       labelText: 'Senha'),
                 ),
                 SizedBox(
-                  height: 8,
+                  height: 16,
                 ),
                 Container(
+                  color: Colors.blue,
                   height: 50,
-                  child: TextButton(
-                      child: const Text('Cadastrar'),
+                  child: ElevatedButton(
+                      child: const Text(
+                        'Cadastrar',
+                        style: TextStyle(color: Colors.white),
+                      ),
                       onPressed: () async {
                         bool isSuccess = await controller.doUserRegistration(
                           controllerUsername.text.trim(),
@@ -98,13 +102,22 @@ class _SingUpState extends State<SingUp> {
                         }
                       }),
                 ),
+                SizedBox(
+                  height: 16,
+                ),
                 Container(
+                  color: Colors.blue,
                   height: 50,
-                  child: TextButton(
-                      child: const Text('Login'),
+                  child: ElevatedButton(
+                      child: const Text(
+                        'Login',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
                       onPressed: () {
                         Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => Login()));
+                            MaterialPageRoute(builder: (context) => LoginPage()));
                       }),
                 ),
               ],

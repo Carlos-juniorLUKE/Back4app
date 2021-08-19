@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 import 'package:register_user/Pages/registration.dart';
-import 'package:register_user/Pages/welcome_page.dart';
+import 'package:register_user/Pages/user_page.dart';
 import 'package:register_user/controller.dart';
+import 'package:register_user/reset_password.dart';
 
 class Login extends StatelessWidget {
   @override
@@ -13,9 +15,7 @@ class Login extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: LoginPage(),
-    );
-  }
+      );  }
 }
 
 class LoginPage extends StatefulWidget {
@@ -28,6 +28,9 @@ class _LoginPageState extends State<LoginPage> {
   final controllerPassword = TextEditingController();
   bool isLoggedIn = false;
   var controller = LoginController();
+
+  // ignore: non_constant_identifier_names
+  get Message => null;
 
   @override
   Widget build(BuildContext context) {
@@ -87,9 +90,11 @@ class _LoginPageState extends State<LoginPage> {
                   height: 16,
                 ),
                 Container(
+                  color: Colors.blue,
                   height: 50,
-                  child: TextButton(
-                      child: const Text('Entrar'),
+                  child: ElevatedButton(
+                      child: const Text('Entrar',
+                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.w400),),
                       onPressed: () async {
                         bool isSuccess = await controller.doUserLogin(
                             controllerUsername.text.trim(),
@@ -102,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => WelcomePage()));
+                                  builder: (context) => UserPage()));
                         } else {
                           showError("Não Foi Possivel fazer Seu Login!");
                         }
@@ -112,22 +117,24 @@ class _LoginPageState extends State<LoginPage> {
                   height: 16,
                 ),
                 Container(
+                  color: Colors.blue,
                   height: 50,
-                  child: TextButton(
-                    child: const Text('Sair'),
-                    onPressed: !isLoggedIn
-                        ? null
-                        : () async {
-                            bool isSuccess = await controller.doUserLogout();
-                            if (isSuccess) {
-                              showSuccess("Usuario Saiu Com Sucesso!");
-                              setState(() {
-                                isLoggedIn = false;
-                              });
-                            } else {
-                              showError("Tente Novamente!");
-                            }
-                          },
+                  child: ElevatedButton(
+                    child: const Text('Cadastrar',
+                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.w400),),
+                    onPressed: () => navigateToSignUp(),
+                  ),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                Container(
+                  color: Colors.blue,
+                  height: 50,
+                  child: ElevatedButton(
+                    child: const Text('Reset PassWord',
+                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.w400),),
+                    onPressed: () => navigateToResetPassword(),
                   ),
                 ),
                 Container(
@@ -136,7 +143,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: const Text('Não Possui Usuario? | Cadastre-se!'),
                       onPressed: () {
                         Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => SingUp()));
+                            MaterialPageRoute(builder: (context) => SignUp()));
                       }),
                 ),
               ],
@@ -144,8 +151,46 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ));
   }
+  void doUserLogin() async {
+    final username = controllerUsername.text.trim();
+    final password = controllerPassword.text.trim();
 
-  void showSuccess(String message) {
+    final user = ParseUser(username, password, null);
+
+    var response = await user.login();
+
+    if (response.success) {
+      navigateToUser();
+    } else {
+      Message.showError(context: context, message: response.error.message);
+    }
+  }
+
+  void navigateToUser() {
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => UserPage()),
+      (Route<dynamic> route) => false,
+    );
+  }
+
+  void navigateToSignUp() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SignUp()),
+    );
+  }
+
+  void navigateToResetPassword() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ResetPasswordPage()),
+    );
+  }
+}
+
+  showSuccess(String message) {
+    var context;
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -166,6 +211,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void showError(String errorMessage) {
+    var context;
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -184,4 +230,3 @@ class _LoginPageState extends State<LoginPage> {
       },
     );
   }
-}
