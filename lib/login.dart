@@ -137,16 +137,7 @@ class _LoginPageState extends State<LoginPage> {
                     onPressed: () => navigateToResetPassword(),
                   ),
                 ),
-                Container(
-                  height: 50,
-                  child: TextButton(
-                      child: const Text('Não Possui Usuario? | Cadastre-se!'),
-                      onPressed: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => SignUp()));
-                      }),
-                ),
-              ],
+                ],
             ),
           ),
         ));

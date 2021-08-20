@@ -81,27 +81,13 @@ class _SignUpState extends State<SignUp> {
                 SizedBox(
                   height: 16,
                 ),
-                Container(
-                  color: Colors.blue,
+               Container(
                   height: 50,
                   child: ElevatedButton(
-                      child: const Text(
-                        'Cadastrar',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      onPressed: () async {
-                        bool isSuccess = await controller.doUserRegistration(
-                          controllerUsername.text.trim(),
-                          controllerEmail.text.trim(),
-                          controllerPassword.text.trim(),
-                        );
-                        if (isSuccess) {
-                          showSuccess();
-                        } else {
-                          showError("Não foi possivel Cadastar!");
-                        }
-                      }),
-                ),
+                    child: const Text('Sign Up'),
+                    onPressed: () => doUserRegistration(),
+                  ),
+               ),
                 SizedBox(
                   height: 16,
                 ),
@@ -168,4 +154,6 @@ class _SignUpState extends State<SignUp> {
       },
     );
   }
+
+  doUserRegistration() {}
 }

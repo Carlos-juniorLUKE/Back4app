@@ -15,7 +15,7 @@ class LoginController {
     var response = await user.logout();
     return response.success;
   }
-  Future<bool>doUserRegistration(String username, String email, String password) async {
+  Future doUserRegistration(String username, String email, String password) async {
   
     final user = ParseUser.createUser(username, password, email);
 

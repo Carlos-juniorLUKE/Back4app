@@ -9,7 +9,7 @@ class UserPage extends StatelessWidget {
   // ignore: non_constant_identifier_names
   get Message => null;
 
-  Future<ParseUser> getUser() async {
+   Future<ParseUser> getUser() async {
     currentUser = await ParseUser.currentUser() as ParseUser;
     return currentUser;
   }
@@ -21,12 +21,11 @@ class UserPage extends StatelessWidget {
       if (response.success) {
         Message.showSuccess(
             context: context,
-            message: 'User was successfully logout!',
+            message: 'Usuario Saiu Com Sucesso!',
             onPressed: () {
-              Navigator.pushAndRemoveUntil(
+              Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => LoginPage()),
-                (Route<dynamic> route) => false,
+                MaterialPageRoute(builder: (context) => LoginPage())
               );
             });
       } else {
