@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 import 'package:register_user/Pages/user_page.dart';
-import 'package:register_user/login.dart';
+import 'package:register_user/Pages/login_page.dart';
 
 class MyApp extends StatelessWidget {
   Future<bool> hasUserLogged() async {

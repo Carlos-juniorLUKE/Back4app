@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
 import 'package:register_user/controller.dart';
-import 'package:register_user/login.dart';
+import 'package:register_user/Pages/login_page.dart';
 
 // ignore: must_be_immutable
 class UserPage extends StatelessWidget {

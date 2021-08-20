@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
-import 'package:register_user/Pages/registration.dart';
+import 'package:register_user/Pages/registration_page.dart';
 import 'package:register_user/Pages/user_page.dart';
 import 'package:register_user/controller.dart';
-import 'package:register_user/reset_password.dart';
+import 'package:register_user/Pages/reset_password_page.dart';
 
 class Login extends StatelessWidget {
   @override
