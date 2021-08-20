@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
+import 'package:register_user/Pages/user_page.dart';
 import 'package:register_user/controller.dart';
 import 'package:register_user/login.dart';
 
@@ -120,8 +122,7 @@ class _SignUpState extends State<SignUp> {
           title: const Text("Sucesso!"),
           content: const Text("Usuario criado com sucesso!"),
           actions: <Widget>[
-            // ignore: deprecated_member_use
-            FlatButton(
+            TextButton(
               child: const Text("OK"),
               onPressed: () {
                 Navigator.push(
@@ -155,5 +156,28 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
-  doUserRegistration() {}
+  doUserRegistration() async {
+    final username = controllerUsername.text.trim();
+    final email = controllerEmail.text.trim();
+    final password = controllerPassword.text.trim();
+
+    final user = ParseUser.createUser(username, password, email);
+
+    var response = await user.signUp();
+
+    if (response.success) {
+      Message.showSuccess(
+          context: context,
+          message: 'User was successfully created!',
+          onPressed: () async {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (context) => UserPage()),
+              (Route<dynamic> route) => false,
+            );
+          });
+    } else {
+      Message.showError(context: context, message: response.error.message);
+    }
+  }
 }

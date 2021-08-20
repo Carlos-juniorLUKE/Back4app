@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:parse_server_sdk_flutter/parse_server_sdk.dart';
+import 'package:register_user/controller.dart';
 import 'package:register_user/login.dart';
 
 // ignore: must_be_immutable
 class UserPage extends StatelessWidget {
   ParseUser currentUser;
-
-  // ignore: non_constant_identifier_names
-  get Message => null;
-
+  
    Future<ParseUser> getUser() async {
     currentUser = await ParseUser.currentUser() as ParseUser;
     return currentUser;

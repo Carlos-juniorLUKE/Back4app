@@ -29,9 +29,6 @@ class _LoginPageState extends State<LoginPage> {
   bool isLoggedIn = false;
   var controller = LoginController();
 
-  // ignore: non_constant_identifier_names
-  get Message => null;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,7 +97,6 @@ class _LoginPageState extends State<LoginPage> {
                             controllerUsername.text.trim(),
                             controllerPassword.text.trim());
                         if (isSuccess) {
-                          showSuccess("Usuario Entrou Com Sucesso!");
                           setState(() {
                             isLoggedIn = true;
                           });
@@ -109,7 +105,7 @@ class _LoginPageState extends State<LoginPage> {
                               MaterialPageRoute(
                                   builder: (context) => UserPage()));
                         } else {
-                          showError("Não Foi Possivel fazer Seu Login!");
+                          showError("Não Foi Possivel fazer Seu Login!", context);
                         }
                       }),
                 ),
@@ -180,29 +176,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
-  showSuccess(String message) {
-    var context;
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text("Sucesso!"),
-          content: Text(message),
-          actions: <Widget>[
-            new TextButton(
-              child: const Text("OK"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  void showError(String errorMessage) {
-    var context;
+  showError(String errorMessage, BuildContext context) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
