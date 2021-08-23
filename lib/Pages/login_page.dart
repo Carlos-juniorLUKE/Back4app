@@ -15,7 +15,8 @@ class Login extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      );  }
+    );
+  }
 }
 
 class LoginPage extends StatefulWidget {
@@ -90,8 +91,11 @@ class _LoginPageState extends State<LoginPage> {
                   color: Colors.blue,
                   height: 50,
                   child: ElevatedButton(
-                      child: const Text('Entrar',
-                      style: TextStyle(color: Colors.white, fontWeight: FontWeight.w400),),
+                      child: const Text(
+                        'Entrar',
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.w400),
+                      ),
                       onPressed: () async {
                         bool isSuccess = await controller.doUserLogin(
                             controllerUsername.text.trim(),
@@ -105,7 +109,8 @@ class _LoginPageState extends State<LoginPage> {
                               MaterialPageRoute(
                                   builder: (context) => UserPage()));
                         } else {
-                          showError("Não Foi Possivel fazer Seu Login!", context);
+                          showError(
+                              "Não Foi Possivel fazer Seu Login!", context);
                         }
                       }),
                 ),
@@ -116,8 +121,11 @@ class _LoginPageState extends State<LoginPage> {
                   color: Colors.blue,
                   height: 50,
                   child: ElevatedButton(
-                    child: const Text('Cadastrar',
-                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.w400),),
+                    child: const Text(
+                      'Cadastrar',
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.w400),
+                    ),
                     onPressed: () => navigateToSignUp(),
                   ),
                 ),
@@ -128,17 +136,21 @@ class _LoginPageState extends State<LoginPage> {
                   color: Colors.blue,
                   height: 50,
                   child: ElevatedButton(
-                    child: const Text('Reset PassWord',
-                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.w400),),
+                    child: const Text(
+                      'Reset PassWord',
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.w400),
+                    ),
                     onPressed: () => navigateToResetPassword(),
                   ),
                 ),
-                ],
+              ],
             ),
           ),
         ));
   }
-  void doUserLogin() async {
+
+  doUserLogin() async {
     final username = controllerUsername.text.trim();
     final password = controllerPassword.text.trim();
 
@@ -153,7 +165,7 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  void navigateToUser() {
+  navigateToUser() {
     Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(builder: (context) => UserPage()),
@@ -161,14 +173,14 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void navigateToSignUp() {
+  navigateToSignUp() {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => SignUp()),
     );
   }
 
-  void navigateToResetPassword() {
+  navigateToResetPassword() {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => ResetPasswordPage()),
@@ -176,22 +188,22 @@ class _LoginPageState extends State<LoginPage> {
   }
 }
 
-  showError(String errorMessage, BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text("Error!"),
-          content: Text(errorMessage),
-          actions: <Widget>[
-            new TextButton(
-              child: const Text("OK"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
+showError(String errorMessage, BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text("Error!"),
+        content: Text(errorMessage),
+        actions: <Widget>[
+          new TextButton(
+            child: const Text("OK"),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
